@@ -46,3 +46,33 @@
 - Referrer-Policy: origin-when-cross-origin
 
   参照: https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Referrer-Policy
+
+# 課題 2
+
+## 問 1
+
+Content-Type ヘッダには様々な MIME タイプを指定することができますが、
+HTML フォームから POST する際に利用されるものは何でしょう？
+
+=> Content-Type: ？？？
+
+## 問 2
+
+Authorization ヘッダに指定できるスキームのうち、
+元々 OAuth 2.0 の認可機構として定義されたものは何でしょう？
+
+## 問 3
+
+「Referrer-Policy: origin-when-cross-origin」がレスポンスヘッダに指定されているとき、
+`http://www.hogehoge.jp/hogehoge`
+
+から
+
+`http://www.Hogehoge.jp:80/hugahuga`
+
+に向けてリクエストを飛ばしました。
+この際のリファラーの挙動は以下のどちらになるでしょうか？
+以下の 1、2 のどちらかを選び、理由を簡単に述べてください。
+
+1. オリジン、パス、クエリ文字列が送信される
+2. オリジンのみ送信される
