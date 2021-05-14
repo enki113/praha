@@ -39,7 +39,7 @@ curl -X POST -d '{"name":"hoge"}' -H 'Content-Type:application/x-www-form-urlenc
 ## curl
 
 ```
-curl -X POST -d '{"userA":{"name":"hoge", "age":29}}' -H 'Content-Type:application/x-www-form-urlencoded' https://httpbin.org/post
+curl -X POST -d '{"userA":{"name":"hoge", "age":29}}' -H 'Content-Type:application/json' https://httpbin.org/post
 ```
 
 ## postman
