@@ -1,26 +1,50 @@
 # 問題 1
 
+## curl
+
 ```
 curl -H 'X-Test:hello' https://httpbin.org/headers
 ```
 
+## postman
+
+![image1](https://user-images.githubusercontent.com/30624076/118224866-f01ab480-b4be-11eb-9688-815cd754078c.png)
+
 # 問題 2
+
+## curl
 
 ```
 curl -X POST -d '{"name":"hoge"}' -H 'Content-Type:application/json' https://httpbin.org/post
 ```
 
+## postman
+
+![image2](https://user-images.githubusercontent.com/30624076/118224874-f315a500-b4be-11eb-8865-a57f12a37ff8.png)
+
 # 問題 3
+
+## curl
 
 ```
 curl -X POST -d '{"name":"hoge"}' -H 'Content-Type:application/x-www-form-urlencoded' https://httpbin.org/post
 ```
 
+## postman
+
+![image3](https://user-images.githubusercontent.com/30624076/118224877-f3ae3b80-b4be-11eb-97b4-d71e7be629fc.png)
+
 # 問題 4
+
+## curl
 
 ```
 curl -X POST -d '{"userA":{"name":"hoge", "age":29}}' -H 'Content-Type:application/x-www-form-urlencoded' https://httpbin.org/post
 ```
+
+## postman
+
+![image4](https://user-images.githubusercontent.com/30624076/118224878-f446d200-b4be-11eb-9a33-383954cca900.png)
 
 # クイズ
 
