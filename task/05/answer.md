@@ -28,4 +28,26 @@
 
 # 2
 
-別ファイル参照
+※別ファイル参照
+
+本ディレクトリ上(`task/05`)から以下コマンドで確認可
+
+```
+1. パッケージのインストール
+$ yarn install
+
+2. サーバ起動
+$ yarn dev
+
+3. (別タブで行う)localhostの8081番でlistenしているサーバをngrokで公開。
+$ ngrok http 8081
+
+4. 生成されたドメインでpublic配下のhtmlにあるsrcを修正。
+
+5. localhost:8080にアクセスし、
+   デベロッパーツールの[Application]タブを選択。
+   左ペインのメニューから［Storage］－［Cookies］を展開し、
+   Cookieが２件登録されていることを確認する。
+
+
+```
