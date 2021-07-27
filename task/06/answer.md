@@ -2,7 +2,7 @@
 
 ### 説明
 
-CORS = ross Origin Resource Sharing
+CORS = Cross Origin Resource Sharing
 
 通常ブラウザは、同一オリジンポリシーによってオリジン間 HTTP リクエストを制限している。
 CORS は、追加の HTTP ヘッダを使用することで、同一オリジンポリシーによるリソース間のアクセスの制限を緩和するためのブラウザの機能。
