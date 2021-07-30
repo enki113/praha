@@ -1,5 +1,5 @@
 import express from "express";
 
-const server2 = express.static("public");
+const staticPage = express.static("public");
 
-export default server2;
+export default staticPage;
