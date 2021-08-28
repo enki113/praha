@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORS test</title>
+  </head>
+  <body>
+    <p>CORS test</p>
+    <button onclick="sendSimpleRequest()">Simple Request</button>
+    <button onclick="sendPreflightRequest()">Preflight Request</button>
+    <script>
+      // 8080番ポートのサーバをngrokで公開したもの(リクエストを受け付けるサーバ)
+      const url = " https://88b8cc544ff4.ngrok.io"
+
+      const sendSimpleRequest = () => {
+        fetch(url, {
+          method: "POST",
+        }).then(response => response.text())
+        .then(text => {
+          console.log(text);
+        });
+      };
+
+      const sendPreflightRequest = () => {
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(response => response.text())
+        .then(text => {
+          console.log(text);
+        });
+      }
+    </script>
+  </body>
+</html>
