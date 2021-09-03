@@ -44,3 +44,56 @@ HTTP/1.1 で 追加された、キャッシュの「振る舞い」を定義す�
 (Cache-Control ヘッダーや Expires ヘッダーと同時に配信された場合は、Cache-Control ヘッダーや Expires ヘッダーが優先される)
 
 参考リンク: https://aimstogeek.hatenablog.com/entry/2018/01/17/154537
+
+### ブラウザのキャッシュサイズ上限について・上限到達時の挙動
+
+##### chrome
+
+上限無し？？(起動時のディスク容量の 10%程度？)
+
+参考リンク: https://superuser.com/questions/378991/what-is-chrome-default-cache-size-limit
+
+使用可能キャッシュ領域が全て埋まった場合は、最も過去に使用されたデータが削除され、上限を下回るまで削除を繰り返す(LRU ポリシー)
+
+##### safari
+
+上限は無制限？
+
+参考リンク: https://stackoverflow.com/questions/38218859/whats-the-size-limit-of-cache-storage-for-service-worker
+
+chrome と同様に LRU ポリシーによって最も過去に使用されたデータが削除され、上限を下回るまで削除を繰り返されると思われる(そのものの文献が見つかりませんでした・・)
+
+### 動的なサイトをキャッシュするなら、expires は使わない方が良い理由
+
+動的サイトは頻繁に内容が変わる可能性が高い一方で、
+「expires」を使用すると設定した期間を過ぎるまでキャッシュされたコンテンツデータを返してしまうため。
+
+動的サイトのキャッシュをする場合は、If-Modified-Since や ETag を用いることが推奨される。
+
+参考リンク: https://blog.redbox.ne.jp/http-header-tuning.html
+
+### ブラウザのキャッシュが WEB サービスに用いられている実例
+
+- Twitter
+
+  ![Twitter](image/twitter.png)
+
+「cache-control: no-cache, no-store」とあるので html のキャッシュはさせない設定となっている。
+
+![Twitter2](image/twitter2.png)
+
+js のレスポンスんついては etag や last-modified を使用してキャッシュの期限設定を行なっている模様。
+
+(あまり理解できていないですが、親ページ自体はキャッシュしないものの、コンポーネントを管理している JS についてはキャッシュをしているということでしょうか・・？)
+
+- Qiita
+
+![qiita](image/qiita.png)
+
+`max-age=0`なので、ブラウザキャッシュはさせないが、Etag での最適化がされている。
+
+- デジタル庁
+
+![デジタル庁](image/digital.png)
+
+キャッシュ防止の設定は入ってなさそう。
