@@ -97,3 +97,38 @@ js のレスポンスついては etag や last-modified を使用してキャ�
 ![デジタル庁](image/digital.png)
 
 キャッシュ防止の設定は入ってなさそう。
+
+# 課題２（実装）
+
+### 起動
+
+```
+yarn install
+yarn dev
+```
+
+### キャッシュする場合
+
+#### http://localhost:8080/pika.jpg
+
+![cache](image/cache_result.jpg)
+
+### キャッシュしない場合
+
+#### http://localhost:8081/pika.jpg
+
+![no-cache](image/no_cache_result.jpg)
+
+# 課題３
+
+Twitter などの頻繁に更新がなされるサービス動的ページ(タイムラインなど)についてはキャッシュをすべきではないかと思います。
+(他あまり思いつかなかったので相談したいです！)
+
+# 課題 4(クイズ)
+
+- last-modified と ETag の両方を指定した際にどちらがより優先されるでしょうか？
+
+- max-age と s-maxage の違いを簡単に説明してください
+
+- max-age が 3600 で設定されているページにアクセスし、その後１時間経過した後に再度同じページにアクセスしました。
+  コンテンツに変更がなかったとすると、返る HTTP ステータスコードは何になるでしょうか？
