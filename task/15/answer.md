@@ -2,7 +2,7 @@
 
 ####「常連顧客を特定して欲しい」と頼まれました
 
-- 1996年に3回以上注文した（Ordersが3つ以上紐づいている）CustomerのIDと、注文回数を取得する
+- 1996 年に 3 回以上注文した（Orders が 3 つ以上紐づいている）Customer の ID と、注文回数を取得する
 
 ```sql
 SELECT
@@ -10,38 +10,37 @@ SELECT
   COUNT(CustomerID) AS OrderCount
 FROM
   Orders
-WHERE  
+WHERE
   Orders.OrderDate LIKE '1996%'
 GROUP BY CustomerID
 HAVING OrderCount >= 3
 ORDER BY OrderCount DESC;
 ```
 
-- 最もよく注文してくれたのは、どのCustomerか
+- 最もよく注文してくれたのは、どの Customer か
 
-![画像１](image/1.jpg) 
+![画像１](images/1.png)
 
-結果より、65,63,20のCustomerが該当
-
+結果より、65,63,20 の Customer が該当
 
 #### 過去最も多くの OrderDetail が紐づいた Order を取得する
 
 ```sql
-SELECT 
+SELECT
   OrderID,
   COUNT(OrderDetailID) AS OrderDetailsCount
-FROM 
+FROM
   OrderDetails
 GROUP BY OrderID
 ORDER BY OrderDetailsCount DESC
 LIMIT 1
 ```
 
-![画像2](image/2.jpg) 
+![画像2](images/2.png)
 
 結果より、５件紐づいている
 
-#### 過去最も多くのOrderが紐づいたShipperを特定する
+#### 過去最も多くの Order が紐づいた Shipper を特定する
 
 ```sql
 SELECT
@@ -54,16 +53,15 @@ ORDER BY OrderCount DESC;
 
 ```
 
-![画像3](image/3.jpg) 
+![画像3](images/3.png)
 
-結果より、ID:2のShipperが該当
+結果より、ID:2 の Shipper が該当
 
-
-#### 売上が高い順番にCountryを並べる
+#### 売上が高い順番に Country を並べる
 
 ```sql
-SELECT 
-  ROUND(SUM(Products.Price * OrderDetails.Quantity)) AS Sales, 
+SELECT
+  ROUND(SUM(Products.Price * OrderDetails.Quantity)) AS Sales,
   Customers.Country
 FROM OrderDetails
   JOIN Products ON (OrderDetails.ProductID = Products.ProductID)
@@ -73,15 +71,14 @@ GROUP BY Customers.Country
 ORDER BY Sales DESC;
 ```
 
-![画像4](image/4.jpg) 
+![画像4](images/4.png)
 
-結果より、最も売り上げが高いのはUSA
+結果より、最も売り上げが高いのは USA
 
-#### 国ごとの売上を年毎に（1月1日~12月31日の間隔で）集計する
-
+#### 国ごとの売上を年毎に（1 月 1 日~12 月 31 日の間隔で）集計する
 
 ```sql
-SELECT 
+SELECT
   Customers.Country,
   strftime('%Y',Orders.OrderDate) as Year,
   ROUND(SUM(OrderDetails.Quantity * Products.Price)) as Salse
@@ -93,12 +90,11 @@ GROUP BY Customers.Country, Year
 ORDER BY Customers.Country
 ```
 
-![画像5](image/5.jpg) 
-
+![画像5](images/5.png)
 
 #### フラグ立て
 
-- Employeeテーブルに「Junior（若手）」カラム（boolean）を追加して、若手に分類されるEmployeeレコードの場合はtrueにする
+- Employee テーブルに「Junior（若手）」カラム（boolean）を追加して、若手に分類される Employee レコードの場合は true にする
 
 ```sql
 ALTER TABLE Employees ADD COLUMN Junior boolean default false;
@@ -116,8 +112,8 @@ WHERE  strftime('%Y', DATE(BirthDate)) > '1960';
 ALTER TABLE Shippers ADD long_relation boolean default false;
 ```
 
-- long_relationがtrueになるべきShipperレコードを特定し、更新
-  - long_relationの定義：これまでに70回以上、Orderに関わったShipper（つまり発注を受けて運搬作業を実施した運送会社）
+- long_relation が true になるべき Shipper レコードを特定し、更新
+  - long_relation の定義：これまでに 70 回以上、Order に関わった Shipper（つまり発注を受けて運搬作業を実施した運送会社）
 
 ```sql
 UPDATE Shippers
@@ -128,6 +124,3 @@ GROUP BY ShipperID
 HAVING COUNT(ShipperID)  >= 70
 );
 ```
-
-
-
