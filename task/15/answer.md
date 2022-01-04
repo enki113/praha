@@ -1,6 +1,6 @@
-### 課題１
+## 課題１
 
-####「常連顧客を特定して欲しい」と頼まれました
+#### 「常連顧客を特定して欲しい」と頼まれました
 
 - 1996 年に 3 回以上注文した（Orders が 3 つ以上紐づいている）Customer の ID と、注文回数を取得する
 
@@ -124,3 +124,90 @@ GROUP BY ShipperID
 HAVING COUNT(ShipperID)  >= 70
 );
 ```
+
+- それぞれの Employee が最後に担当した Order と、その日付を取得
+
+```sql
+SELECT Employees.EmployeeID, Orders.OrderDate AS LatestOrderDate, Orders.OrderID
+FROM Orders JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+GROUP BY Employees.EmployeeID
+HAVING MAX(Orders.OrderDate)
+```
+
+## NULL の扱いに慣れる
+
+```sql
+UPDATE Customers SET CustomerName = NULL WHERE CustomerID < 10
+```
+
+- CustomerName が存在するユーザーを取得する
+
+```sql
+SELECT * FROM Customers WHERE CustomerName IS NOT NULL
+```
+
+- CustomerName が存在しないユーザーを取得する
+
+```sql
+SELECT * FROM Customers WHERE CustomerName IS NULL
+```
+
+## JOIN の違いに慣れる
+
+- レコードを削除する
+
+```sql
+DELETE FROM Employees WHERE EmployeeID = 1
+```
+
+- EmployeeID = 1 が担当した Order を表示しない
+
+```sql
+SELECT *
+FROM Orders JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+```
+
+- EmployeeID = 1 が担当した Order を表示する
+
+```sql
+SELECT *
+FROM Orders LEFT JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+```
+
+## 課題 2
+
+#### WHERE と HAVING の違い/使用用途
+
+- `WHERE`は、条件を指定して絞り込みをする
+- `HAVING`は、「GROUP BY」でグルーピングした結果に絞り込みをかける
+
+#### SQL の文脈において、DDL、DML、DCL、TCL とは
+
+- DDL
+
+Data Definition Language
+
+テーブルの作成・削除・設定などを行う命令のこと。
+例：`CREATE`・`ALTER`
+
+- DML
+
+Data Manipulation Language
+
+データの取得や追加、更新、削除の操作を行う命令。
+例：`SELECT`・`INSERT`・`UPDATE`・`DELETE`
+
+- DCL
+
+Data Control Language
+
+DML や DDL の利用に関する権限設定を行う命令。
+例：`REVOKE`・`GRANT`
+
+- TCL
+
+Transaction Control Language
+
+トランザクションの開始や終了の命令。
+
+例：`COMMIT`・`ROLLBACK`・`SET TRANSACTION`
