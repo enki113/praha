@@ -211,3 +211,16 @@ Transaction Control Language
 トランザクションの開始や終了の命令。
 
 例：`COMMIT`・`ROLLBACK`・`SET TRANSACTION`
+
+## 課題 3
+
+```sql
+SELECT ProductID, SUM(ProductName)
+FROM Products
+GROUP BY SupplierID
+WHERE Price > 20;
+```
+
+上記 SQL は文法上の誤りが３つあります。
+その全てを簡単に説明してください。
+(3 つあるので、その合計で 3 問クイズを出したことにします w)
