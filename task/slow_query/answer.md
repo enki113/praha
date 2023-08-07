@@ -76,3 +76,55 @@ SELECT * FROM `salaries` WHERE `salary` = 60117;
 ```
 
 # 課題 2
+
+- 最も頻度の高いもの
+
+```sql
+mysqldumpslow -s c -t 1 /var/lib/mysql/4c311fa9a949-slow.log
+```
+
+- 最も実行時間が長いもの
+
+```sql
+mysqldumpslow -s t -t 1 /var/lib/mysql/4c311fa9a949-slow.log
+```
+
+- 最もロック時間が長いもの
+
+```sql
+mysqldumpslow -s l -t 1 /var/lib/mysql/4c311fa9a949-slow.log
+```
+
+# 課題３
+
+- 最も頻度が高いものを解消する
+
+```sql
+CREATE INDEX idx_last_name ON employees(last_name);
+```
+
+- 最も実行時間が長いものを解消する
+
+```sql
+CREATE INDEX idx_salary ON salaries(salary);
+```
+
+# 課題４
+
+### なぜ limit 1 で遅いのか
+
+- LIMIT 句はクエリの実行処理の一番最後に実行されるために、結局条件に合致するレコードに対してフルスキャンが走ってしまうから。
+
+### ON で絞った方が良いのか？
+
+- 前提として、実行順序は ON => JOIN => WHERE の順番(JOIN が行われる前に ON が評価され、JOIN 後の結果に WHERE が適用される)
+- ただ、
+
+  - ON 句: 結合条件
+  - WHERE 句: フィルタリング条件
+  - なので、今回の場合だと結合条件(ON の対象)としては emp_no のみが該当し、残りの gender と birth_date はフィルタリング条件(WHERE の対象)になるべき
+  - また、実際に実行した場合でもオプティマイザが適切に実行計画を考えてくれるのでパフォーマンスの違いもない
+  - さらに、OUTER JOIN を使用して ON 句に条件を指定すると、結合前に条件による絞り込みが行われるために結合元テーブルのレコードが全て取得される(=>結合先の関連がない婆は null 埋めされて出力される)ので、明確に結果が異なってくる
+  - 以上の理由によりこの場合については ON ではなく WHERE を使用する方が適切である
+
+  補足※: [[実行順序を ON=>JOIN=>WHERE と書いたが、SQL をオプティマイザが最適化する過程で WHERE で絞った状態で JOIN されることもあるようだ](https://ryuichi1208.hateblo.jp/entry/2022/11/13/103003)
